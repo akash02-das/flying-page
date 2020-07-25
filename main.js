@@ -1,4 +1,5 @@
 // DOM Elements
+const date = document.getElementById('date');
 const time = document.getElementById('time');
 const greeting = document.getElementById('greeting');
 const name = document.getElementById('name');
@@ -7,13 +8,27 @@ const focus = document.getElementById('focus');
 // Options
 const showAmPm = true;
 
+// Show Date
+function showDate() {
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    let myDate = new Date();
+    let month = monthNames[myDate.getMonth()];
+    let day = String(myDate.getDate()).padStart(2, '0');
+    let year = myDate.getFullYear();
+    let currentDate = `${month} ${day}, ${year}`;
+
+    // Output Date
+    date.innerHTML = currentDate;
+}
+
 // Show Time
 function showTime() {
     let today = new Date();
 
-    let hour = today.getHours();
-    let min = today.getMinutes();
-    let sec = today.getSeconds();
+    let hour = String(today.getHours()).padStart(2, '0');
+    let min = String(today.getMinutes()).padStart(2, '0');
+    let sec = String(today.getSeconds()).padStart(2, '0');
 
     // Set AM / PM
     const amPm = hour >= 12 ? 'PM' : 'AM';
@@ -22,14 +37,9 @@ function showTime() {
     hour = hour % 12 || 12;
 
     // Output Time
-    time.innerHTML = `${addZeroTime(hour)}<span>:</span>${addZeroTime(min)}<span>:</span>${addZeroTime(sec)} ${showAmPm ? amPm : ''}`;
+    time.innerHTML = `${hour}<span>:</span>${min}<span>:</span>${sec} ${showAmPm ? amPm : ''}`;
 
     setTimeout(showTime, 1000);
-}
-
-// Add Zero Time
-function addZeroTime(n) {
-    return (parseInt(n, 10) < 10 ? '0' : '') + n;
 }
 
 // Set Background and Greeting
@@ -43,19 +53,21 @@ function setBgGreet() {
         document.body.style.backgroundSize = "cover";
         document.body.style.backgroundPosition = "center";
         greeting.textContent = 'Good Morning,';
+        document.body.style.color = "#01172F";
     } else if (hour < 18) {
         // Afternoon
         document.body.style.backgroundImage = "url('./img/afternoon.jpg')";
         document.body.style.backgroundSize = "cover";
         document.body.style.backgroundPosition = "center";
         greeting.textContent = 'Good Afternoon,';
+        document.body.style.color = "#0C0C0C";
     } else {
         // Evening
         document.body.style.backgroundImage = "url('./img/night.jpg')";
         document.body.style.backgroundSize = "cover";
         document.body.style.backgroundPosition = "center";
         greeting.textContent = 'Good Evening,';
-        document.body.style.color = "White";
+        document.body.style.color = "#ffffff";
     }
 }
 
@@ -110,6 +122,7 @@ focus.addEventListener('keypress', setFocus);
 focus.addEventListener('blur', setFocus);
 
 // Run
+showDate();
 showTime();
 setBgGreet();
 getName();
