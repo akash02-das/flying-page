@@ -5,6 +5,63 @@ const greeting = document.getElementById('greeting');
 const name = document.getElementById('name');
 const focus = document.getElementById('focus');
 
+// WEATHER SECTION
+window.addEventListener('load', () => {
+
+    let long;
+    let lat;
+
+    let temperatureDegree = document.querySelector('.temperature-degree');
+    let temperatureSection = document.querySelector('.temperature');
+    let temperatureSpan = document.querySelector('.temperature span sup');
+    let locationTimezone = document.querySelector('.location-timezone');
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+            long = position.coords.longitude;
+            lat = position.coords.latitude;
+
+            const proxy = 'https://cors-anywhere.herokuapp.com/';
+            const api = `${proxy}https://api.darksky.net/forecast/fd9d9c6418c23d94745b836767721ad1/${lat},${long}`;
+
+            fetch(api)
+                .then(response => response.json())
+                .then(data => {
+                    //console.log(data);
+
+                    getDataFromApi(data);
+                });
+        });
+    }
+
+    // GET DATA FROM API
+    function getDataFromApi(data) {
+
+        const {
+            temperature
+        } = data.currently;
+
+        // Set DOM elements from the API
+        temperatureDegree.textContent = Math.round(temperature);
+        locationTimezone.textContent = data.timezone;
+
+        // Formula for Celsius
+        let celsius = (temperature - 32) * (5 / 9);
+
+        // Convert Temperature to Celsius/Fahrenheit
+        temperatureSection.addEventListener('click', () => {
+            if (temperatureSpan.textContent === "F") {
+                temperatureSpan.textContent = "C";
+                temperatureDegree.textContent = Math.round(celsius);
+            } else {
+                temperatureSpan.textContent = "F";
+                temperatureDegree.textContent = Math.round(temperature);
+            }
+        });
+    }
+});
+// WEATHER SECTION END
+
 // Options
 const showAmPm = true;
 
@@ -26,7 +83,7 @@ function showDate() {
 function showTime() {
     let today = new Date();
 
-    let hour = String(today.getHours()).padStart(2, '0');
+    let hour = today.getHours();
     let min = String(today.getMinutes()).padStart(2, '0');
     let sec = String(today.getSeconds()).padStart(2, '0');
 

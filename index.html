@@ -12,25 +12,41 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
 
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
+        integrity="sha512-xA6Hp6oezhjd6LiLZynuukm80f8BoZ3OpcEYaqKoCV3HKQDrYjDE1Gu8ocxgxoXmwmSzM4iqPvCsOkQNiu41GA=="
+        crossorigin="anonymous" />
+
     <!-- Custom Css -->
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <date id="date"></date>
+    <!-- Weather -->
+    <div class="temperature">
+        <i class="fas fa-temperature-high fa-2x"></i>
+        <h2 class="temperature-degree">--</h2>
+        <span><sup>F</sup></span>
+    </div>
 
-    <time id="time"></time>
+    <h1 class="location-timezone">Timezone</h1>
+    <!-- Weather End -->
 
-    <h1>
-        <span id="greeting"></span>
-        <span id="name" contenteditable="true"></span>
-    </h1>
+    <div class="container">
+        <date id="date"></date>
 
-    <h2>What Is Your Main Focus For Today?</h2>
-    <h2 id="focus" contenteditable="true"></h2>
+        <time id="time"></time>
 
-    <p>“To find yourself, think for yourself.”</p>
+        <h1>
+            <span id="greeting"></span>
+            <span id="name" contenteditable="true"></span>
+        </h1>
 
+        <h2>What Is Your Main Focus For Today?</h2>
+        <h2 id="focus" contenteditable="true"></h2>
+
+        <p>“To find yourself, think for yourself.”</p>
+    </div>
 
     <script src="main.js"></script>
 </body>
